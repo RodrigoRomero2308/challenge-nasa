@@ -2,10 +2,9 @@
 
 import { cameras } from "@/constants/cameras";
 import { rovers } from "@/constants/rovers";
-import { roverFilterContext } from "@/context/RoverFIlterContext";
+import useFilterStorage from "@/hooks/useFilterStorage";
 import { RoverApiFilter } from "@/interfaces/roverApiFilter";
 import { RoverCamera } from "@/interfaces/roverCameraInfo";
-import { saveFilterByRover } from "@/utils/filterStorage";
 import {
   getDefaultEarthDateFilter,
   getRoverFilterQueryStringsByFilter,
@@ -27,8 +26,6 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   FormEventHandler,
-  useContext,
-  useEffect,
   useState,
 } from "react";
 
@@ -42,6 +39,7 @@ const RoverFilterForm = ({
   let componentSize: "small" | "medium" = "small";
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { saveFilterByRover } = useFilterStorage();
 
   const searchParamSolDate = searchParams.get("sol");
   const searchParamEarthDate = searchParams.get("earth_date");

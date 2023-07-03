@@ -1,12 +1,13 @@
 "use client";
 
 import { rovers } from "@/constants/rovers";
-import { getFilterByRover } from "@/utils/filterStorage";
+import useFilterStorage from "@/hooks/useFilterStorage";
 import { getRoverFilterQueryStringsByFilter } from "@/utils/roverApiUtils";
 import { Button, Fade, Link, Stack } from "@mui/material";
 import React from "react";
 
 const RoversButtons = () => {
+  const { getFilterByRover } = useFilterStorage();
   return (
     <Fade in timeout={2000}>
       <div
