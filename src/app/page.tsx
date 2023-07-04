@@ -13,7 +13,7 @@ export default async function Page() {
     >
       <LandingTitle />
 
-      <RoversButtons />
+      <RoversButtons showFavoritesButton />
     </div>
   );
 }

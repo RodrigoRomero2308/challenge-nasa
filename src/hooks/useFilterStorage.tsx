@@ -4,7 +4,7 @@ import React from "react";
 import { LOCAL_STORAGE_FILTER_KEY } from "@/constants/constants";
 import { RoverApiFilter } from "@/interfaces/roverApiFilter";
 
-interface StoredFilter {
+export interface StoredFilter {
   rover: string;
   filter: RoverApiFilter;
 }
@@ -19,6 +19,16 @@ const useFilterStorage = () => {
     const filters: StoredFilter[] = JSON.parse(filtersStored);
 
     return filters.find((item) => item.rover === rover);
+  };
+
+  const getAllFilters = () => {
+    if (typeof window === "undefined" || !window.localStorage) return [];
+
+    const filters = localStorage.getItem(LOCAL_STORAGE_FILTER_KEY);
+
+    if (!filters) return [];
+
+    return JSON.parse(filters) as StoredFilter[];
   };
 
   const saveFilterByRover = (filter: RoverApiFilter, rover: string) => {
@@ -63,6 +73,7 @@ const useFilterStorage = () => {
   return {
     getFilterByRover,
     saveFilterByRover,
+    getAllFilters,
   };
 };
 

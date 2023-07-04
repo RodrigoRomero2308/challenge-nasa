@@ -1,13 +1,24 @@
 "use client";
 
 import { rovers } from "@/constants/rovers";
-import useFilterStorage from "@/hooks/useFilterStorage";
+import useFilterStorage, { StoredFilter } from "@/hooks/useFilterStorage";
 import { getRoverFilterQueryStringsByFilter } from "@/utils/roverApiUtils";
 import { Button, Fade, Link, Stack } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import FavoritesLinkButton from "./favorites/FavoritesLinkButton";
 
-const RoversButtons = () => {
-  const { getFilterByRover } = useFilterStorage();
+const RoversButtons = ({
+  showFavoritesButton,
+}: {
+  showFavoritesButton?: boolean;
+}) => {
+  const { getAllFilters } = useFilterStorage();
+  const [filters, setFilters] = useState<StoredFilter[]>([]);
+
+  useEffect(() => {
+    setFilters(getAllFilters());
+  }, []);
+
   return (
     <Fade in timeout={2000}>
       <div
@@ -19,7 +30,9 @@ const RoversButtons = () => {
       >
         <Stack spacing={2}>
           {rovers.map((rover) => {
-            const thisRoverFilters = getFilterByRover(rover.apiEndpoint);
+            const thisRoverFilters = filters.find(
+              (item) => item.rover === rover.apiEndpoint
+            );
             let href = `/${rover.apiEndpoint}`;
             if (thisRoverFilters) {
               const searchParams = getRoverFilterQueryStringsByFilter(
@@ -42,6 +55,7 @@ const RoversButtons = () => {
               </Link>
             );
           })}
+          {showFavoritesButton && <FavoritesLinkButton />}
         </Stack>
       </div>
     </Fade>

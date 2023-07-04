@@ -8,11 +8,13 @@ import {
   CardMedia,
   Fade,
   ImageListItem,
+  ImageListItemBar,
   Modal,
   Skeleton,
   Typography,
 } from "@mui/material";
 import React, { forwardRef, useState } from "react";
+import FavoriteButton from "@/components/favorites/FavoriteButton";
 
 const RoverPhoto = (
   {
@@ -62,6 +64,7 @@ const RoverPhoto = (
               display: "block",
               objectFit: "cover",
               objectPosition: "center",
+              cursor: "pointer",
             }}
             src={image.img_src}
             alt={image.id.toString()}
@@ -70,6 +73,15 @@ const RoverPhoto = (
             hidden
           ></img>
         </Fade>
+        <ImageListItemBar
+          position="top"
+          actionPosition="right"
+          sx={{
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 80%, rgba(0,0,0,1) 100%);",
+          }}
+          actionIcon={<FavoriteButton image={image} />}
+        />
         {!imageReady && (
           <div
             style={{
@@ -112,6 +124,7 @@ const RoverPhoto = (
               <CardHeader
                 title={image.rover.name}
                 subheader={`${image.camera.name} - ${image.camera.full_name}`}
+                action={<FavoriteButton image={image} />}
               />
               <CardMedia
                 component="img"
@@ -128,18 +141,6 @@ const RoverPhoto = (
               <CardContent>
                 <Typography>Fecha terrestre: {image.earth_date}</Typography>
                 <Typography>Fecha marciana: {image.sol}</Typography>
-                {/* <img
-                  style={{
-                    display: "block",
-                    objectFit: "contain",
-                    width: "100%",
-                    height: "100%",
-                    marginTop: 8,
-                  }}
-                  src={image.img_src}
-                  alt={image.id.toString()}
-                  loading="lazy"
-                ></img> */}
               </CardContent>
             </Card>
           </div>

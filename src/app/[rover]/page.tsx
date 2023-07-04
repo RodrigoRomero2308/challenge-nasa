@@ -3,6 +3,7 @@ import FormAside from "@/components/FilterFormAside";
 import RoverPageTitle from "@/components/RoverPageTitle";
 import RoverPhotoList from "@/components/RoverPhotoList";
 import React from "react";
+import FloatingBackButton from "@/components/FloatingBackButton";
 
 const page = ({
   params,
@@ -22,6 +23,7 @@ const page = ({
         <RoverPhotoList rover={params.rover} />
         <FormAside />
       </div>
+      <FloatingBackButton />
       <FloatingFilterButton />
     </div>
   );
