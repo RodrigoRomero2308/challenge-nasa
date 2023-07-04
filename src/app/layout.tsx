@@ -3,7 +3,7 @@ import "./globals.css";
 import { StrictMode } from "react";
 
 export const metadata = {
-  title: "NASA App",
+  title: "Mars Rovers App",
   description: "An app made to complete a challenge using the open NASA API",
 };
 
