@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import React, { forwardRef, useState } from "react";
 import FavoriteButton from "@/components/favorites/FavoriteButton";
+import useImageListConstants from "@/hooks/useImageListConstants";
 
 const RoverPhoto = (
   {
@@ -29,6 +30,7 @@ const RoverPhoto = (
     | undefined
 ) => {
   const [imageReady, setImageReady] = useState(false);
+  const { itemMinHeight } = useImageListConstants();
   const onImageLoad = () => {
     setImageReady(true);
   };
@@ -65,6 +67,7 @@ const RoverPhoto = (
               objectFit: "cover",
               objectPosition: "center",
               cursor: "pointer",
+              minHeight: itemMinHeight,
             }}
             src={image.img_src}
             alt={image.id.toString()}
