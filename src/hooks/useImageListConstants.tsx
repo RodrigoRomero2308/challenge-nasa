@@ -5,8 +5,11 @@ import { useMediaQuery, useTheme } from "@mui/material";
 const useImageListConstants = () => {
   const theme = useTheme();
   const smActive = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdActive = useMediaQuery(theme.breakpoints.up("md"));
+  const lgActive = useMediaQuery(theme.breakpoints.up("lg"));
 
   let listCols = 3;
+  let itemMinHeight = 100;
 
   let getColAndRowSpanByIndex = (
     index: number
@@ -39,6 +42,7 @@ const useImageListConstants = () => {
   switch (true) {
     case smActive:
       listCols = 4;
+      itemMinHeight = 150;
       getColAndRowSpanByIndex = (index) => {
         const value = (index + 1) % 25;
 
@@ -61,13 +65,17 @@ const useImageListConstants = () => {
             };
         }
       };
-      break;
+    case mdActive:
+      itemMinHeight = 200;
+    case lgActive:
+      itemMinHeight = 250;
     default:
       break;
   }
   return {
     listCols,
     getColAndRowSpanByIndex,
+    itemMinHeight,
   };
 };
 
